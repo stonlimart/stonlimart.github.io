@@ -48,7 +48,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: stonlimart
+disqus_username: crow
 
 # Netease setttings
 netease_comment: false
@@ -86,12 +86,12 @@ service-worker: true
 
 # Friends
 friends: [
-    # {
-    # #     title: "Su",
-    # #     href: "http://su.gallery/"
-    # # },{
-    #     title: "乱序",
-    #     href: "http://mida.re/"
+    {
+    #     title: "Su",
+    #     href: "http://su.gallery/"
+    # },{
+        title: "Crowhawk",
+        href: "https://crowhawk.github.io"
     # },{
     #     title: "前端外刊评论",
     #     href: "http://qianduan.guru/"
