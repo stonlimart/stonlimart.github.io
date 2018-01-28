@@ -1,6 +1,6 @@
 # Site settings
-title: Stonlimart Blog
-SEOTitle: 古安的博客 | Stonlimart Blog
+title: Stonlimart 
+SEOTitle: 古安的博客 | Stonlimart 
 header-img: img/new-home-bg.jpg
 email: stonlimart@hotmail.com
 description: "深度学习与计算机图形学、发育中的程序猿 | Stonlimart，Deep Learning & Computer Graphics Learner，Developing Programmer| 这里是 Stonlimart 的个人博客，与你一起发现更大的世界。"
@@ -12,7 +12,7 @@ baseurl: ""                             # for example, '/blog' if your blog host
 
 # SNS settings
 RSS: false
-weibo_username:     古安
+weibo_username:     
 zhihu_username:     anchot
 github_username:    stonlimart
 twitter_username:   
@@ -48,7 +48,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: hux
+disqus_username: stonlimart
 
 # Netease setttings
 netease_comment: false
@@ -60,15 +60,15 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-ga_domain: huangxuan.me
+ga_track_id: 'UA-113153594-1'            # Format: UA-xxxxxx-xx
+ga_domain: auto
 
 
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "安静的学习，<br>人生如逆旅，我亦是行人"
-sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/avatar-mine.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
