@@ -67,7 +67,7 @@ ga_domain: auto
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "安静的学习，<br>人生如逆旅，我亦是行人"
+sidebar-about-description: "<br>人生如逆旅，我亦是行人"
 sidebar-avatar: /img/avatar-mine.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
