@@ -5,7 +5,7 @@ header-img: img/new-home-bg.jpg
 email: stonlimart@hotmail.com
 description: "深度学习与图形学、发育中的程序猿 | Stonlimart，Deep Learning & Computer Graphics Learner，Developing Programmer| 这里是 Stonlimart 的个人博客，与你一起发现更大的世界。"
 keyword: "古安, Stonlimart古安, 古安的博客, Stonly Blog, Stonlimart, Deep Learning, Computer Graphis"
-url: ""    #"https://stonlimart.github.io"              # your host, for absolute URL
+url: "https://stonlimart.github.io"    #"https://stonlimart.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
