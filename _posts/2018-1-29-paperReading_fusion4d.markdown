@@ -19,7 +19,6 @@ tags:
     extensions: ["tex2jax.js"],
     jax: ["input/TeX", "output/HTML-CSS"],
     tex2jax: {
-      <!--$表示行内元素，$$表示块状元素 -->
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
@@ -27,7 +26,7 @@ tags:
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-<!--加载MathJax的最新文件， async表示异步加载进来 -->
+
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
 </script>
 
@@ -61,11 +60,11 @@ Fusion 4D 尝试将多视角捕捉系统固有的特性带入实时三维场景�
 
 接下来，我们使用放射变换(旋转变换)$A_k\in R^{3\times3}$和平移变换$t_k \in R^3$. 除此之外，还有全局旋转矩阵$R$和平移$T$。因此集合$G = \{R,T\}\cup\{A_k,t_k\}_{k=1}^K$完全参数化了变形，因此将点$\mathbf{v}$变形为
 
-​					$\mathcal{T}(\mathbf{v}_m;G) = R \sum_{k \in S_m} w_k^m[A_k(\mathbf{v}_m-\mathbf{g}_k)+\mathbf{g}_k+\mathbf{t}_k]+T$	 (1)
+​					$$\mathcal{T}(\mathbf{v}_m;G) = R \sum_{k \in S_m}w_k^m[A_k(\mathbf{v}_m-\mathbf{g}_k)+\mathbf{g}_k+\mathbf{t}_k]+T$$	 
 
 同样，该点的法向量 $n$ 被变形为：
 
-​					$\mathcal{T}^{\bot}(\mathbf{n}_m;G) = R \sum_k \in S_m w_k^mA_k^{-T}\mathbf{n}_m$	(2)
+​		$$\mathcal{T}^{\bot}(\mathbf{n}_m;G) = R \sum_k \in S_mw_k^mA_k^{-T}\mathbf{n}_m$$	
 
 法向量会在后面用到。
 
@@ -73,7 +72,7 @@ Fusion 4D 尝试将多视角捕捉系统固有的特性带入实时三维场景�
 
 为了估计参数$G$，建立一个能量函数$E(G)$来惩罚模型和观测数据间的未对齐，对变形类型进行正则化，和对其他一些特性和限制进行编码。能量函数是：
 
-​		$E(G) = \lambda_{data}E_{data}(G)+ \lambda_{hull}E_{hull}(G)+ \lambda_{corr}E_{corr}(G)+ \lambda_{rot}E_{rot}(G)+ \lambda_{smooth}E_{smooth}(G)$	(3)
+​		$$E(G) = \lambda_{data}E_{data}(G)+ \lambda_{hull}E_{hull}(G)+ \lambda_{corr}E_{corr}(G)+ \lambda_{rot}E_{rot}(G)+ \lambda_{smooth}E_{smooth}(G)$$	(3)
 
 下面对上述分量逐一介绍.
 
