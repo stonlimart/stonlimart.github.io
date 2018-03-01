@@ -60,7 +60,7 @@ Fusion 4D 尝试将多视角捕捉系统固有的特性带入实时三维场景�
 
 接下来，我们使用放射变换(旋转变换)$A_k\in R^{3\times3}$和平移变换$t_k \in R^3$. 除此之外，还有全局旋转矩阵$R$和平移$T$。因此集合$G = \{R,T\}\cup\{A_k,t_k\}_{k=1}^K$完全参数化了变形，因此将点$\mathbf{v}$变形为
 
-​					$$\mathcal{T}(\mathbf{v}_m;G) = R \sum_{k \in S_m}w_k^m[A_k(\mathbf{v}_m-\mathbf{g}_k)+\mathbf{g}_k+\mathbf{t}_k]+T$$	 
+​$$\mathcal{T}(\mathbf{v}_m;G) = R \sum_{k \in S_m}w_k^m[A_k(\mathbf{v}_m-\mathbf{g}_k)+\mathbf{g}_k+\mathbf{t}_k]+T$$	 
 
 同样，该点的法向量 $n$ 被变形为：
 
