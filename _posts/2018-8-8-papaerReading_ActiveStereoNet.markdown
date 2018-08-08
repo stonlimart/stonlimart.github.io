@@ -14,6 +14,10 @@ tags:
 
 
 
+#《ActiveStereoNet:End-to-End Self-Supervised Learning for Active Stereo Systems》论文阅读
+
+
+
 > 本文出自谷歌与普林斯顿大学研究人员之手并发表于计算机视觉顶会ECCV2018。本文首次提出了应用于主动双目立体视觉的深度学习解决方案，并引入了一种新的重构误差，采用自监督的方法来解决缺少ground truth数据的问题，本文所提供的方法在许多方面表现出了最好的结果
 
 ##  Abstract
