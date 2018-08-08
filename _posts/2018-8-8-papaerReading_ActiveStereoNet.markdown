@@ -1,6 +1,6 @@
 ---
-layout : post
-title : "论文阅读《ActiveStereoNet:End-to-End Self-Supervised Learning for Active Stereo Systems》"
+layout: 	post
+title: 		"论文阅读《ActiveStereoNet:End-to-End Self-Supervised Learning for Active Stereo Systems》"
 subtitle:   ""
 date:       2018-08-08 12:30:00
 author:     "stonlimart"
@@ -8,14 +8,8 @@ author:     "stonlimart"
 header-mask: 0.3
 catalog:    true
 tags:
-	-Stereo Vision
-
+	- StereoVision
 ---
-
-
-
-#《ActiveStereoNet:End-to-End Self-Supervised Learning for Active Stereo Systems》论文阅读
-
 
 
 > 本文出自谷歌与普林斯顿大学研究人员之手并发表于计算机视觉顶会ECCV2018。本文首次提出了应用于主动双目立体视觉的深度学习解决方案，并引入了一种新的重构误差，采用自监督的方法来解决缺少ground truth数据的问题，本文所提供的方法在许多方面表现出了最好的结果
@@ -38,7 +32,7 @@ tags:
 
 现在来介绍ActiveStereoNet的网络结构和主要训练过程。
 
-算法的输入是一对**矫正过的同步采集的**IR图像, 输出是一对同原始分辨率的视察图像。在本实验中采用1280*720的图像。相机的焦距$f$和两个相机间的基线$b$假设已知。因此，深度的预测问题转化为了同一扫描线上的视差问题。给定视差 $d$，则深度是 $Z = \frac{bf}{d}$
+算法的输入是一对**矫正过的同步采集的**IR图像, 输出是一对同原始分辨率的视察图像。在本实验中采用1280*720的图像。相机的焦距$$f$$和两个相机间的基线$$b$$假设已知。因此，深度的预测问题转化为了同一扫描线上的视差问题。给定视差 $$d$$，则深度是 $$Z = \frac{bf}{d}$$
 
 因为缺乏ground truth数据，本算的主要挑战是在没有直接监督的情况下，训练一个对遮挡和光照变化鲁棒的端对端网络。下面是算法细节：
 
@@ -56,7 +50,7 @@ tags:
 
 ### Loss Function
 
-上述网络结构是由一个低分辨率的视差网络和后续的微调模块来恢复高频细节，所以自然想到的方案是每个步骤都有一个损失函数。但是由于是无监督的，所以一个可行的方案是用左图和重构的左图之间的光度误差来作为损失函数$L = \sum_{ij}||I_{ij}^l - \hat{I}_{ij}^l||_1$ ,重构的左图是通过预测视差和右图采样得到的。采样器是使用**Spatial Transformer Network（STN）** 得到的，该采样器对同行的2个像素进行双线性采样而且是完全可微的。
+上述网络结构是由一个低分辨率的视差网络和后续的微调模块来恢复高频细节，所以自然想到的方案是每个步骤都有一个损失函数。但是由于是无监督的，所以一个可行的方案是用左图和重构的左图之间的光度误差来作为损失函数 $$L = \sum_{ij}||I_{ij}^l - \hat{I}_{ij}^l||_1$$ ,重构的左图是通过预测视差和右图采样得到的。采样器是使用**Spatial Transformer Network（STN）** 得到的，该采样器对同行的2个像素进行双线性采样而且是完全可微的。
 
 但是光度损失在图像重建中表现很差，尤其在主动双目系统中。首先，接受到的信号强度与距离的平方成反比，即 $I\propto\frac{1}{Z^2}$，这导致光度对距离的明显的依赖。第二，明亮的像素比暗点的像素更容易产生较大的残差，因为 $I = I^{*}+N(0,\sigma_1I^*+\sigma_2)$, 则两个匹配像素之间的残差满足分布$\epsilon  = N(0,\sqrt{(\sigma_1I^*+\sigma_2)^2+(\sigma_3\hat{I}^*+\sigma_4)^2} )$，可知，方差与亮度有关。在主动双目系统中，上述问题会使得网络偏向特殊的场景，永远会有更大的误差。网络会在更容易的区域学习，然后对其它区域进行平滑。那些较暗的像素，需要更高的精确度来确定深度，却会被忽略掉。
 
