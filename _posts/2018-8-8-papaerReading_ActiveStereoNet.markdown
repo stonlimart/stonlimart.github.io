@@ -44,7 +44,7 @@ tags:
 
 整体的流程图如图所示：
 
-> ![](https://github.com/stonlimart/stonlimart.github.io/blob/master/img/in-post/papers/ActiveStereo-network.png)算法采用两阶段模型，  首先建立一个低分辨率的成本项并进行的第一次视差估计。然后进行双线性采样，其后跟一个残差网络来预测最终的误差。右下的 “有效性网络” 也是通过端到端训练来预测置信度。
+> ![](https://res.cloudinary.com/doijhjbpf/image/upload/v1533778994/ActiveStereo-network.png)算法采用两阶段模型，  首先建立一个低分辨率的成本项并进行的第一次视差估计。然后进行双线性采样，其后跟一个残差网络来预测最终的误差。右下的 “有效性网络” 也是通过端到端训练来预测置信度。
 
 本文从一个高分辨率首先使用Siamese双塔来产生1/8分辨率的特征图，而后建立一个160x90x18的低分辨率的成本项，这个成本项允许在原始分辨率下最大144的视差，大概距离镜头30厘米的距离。
 
@@ -60,7 +60,7 @@ tags:
 
 **加权局部对比度归一化.**  本文提出使用局部对比度归一化方法，它不仅移除了亮度和视差的相关性，而且再遮挡区域给出了更好的残差。它还对左右图的亮度变化具有不变性。 特别是，对于每个像素，计算一个9*9的小像素块中的局部均值$\mu$和标准差$\sigma$， 局部的统计量用于归一化当前像素的亮度$I_{LCN} = \frac{I-\mu}{\sigma+\eta}$ ,$\eta$是一个小常数。下图表现了LCN归一化的结果
 
-> ![](../img/in-post/papers/ActiveStereo-LCN.png)
+> ![](https://res.cloudinary.com/doijhjbpf/image/upload/v1533778995/ActiveStereo-LCN.png)
 
 但是，LCN在标准差接近0的弱纹理的区域表现不好（Fig.3 LCN error）. 事实上是因为这些区域小的$\sigma$会放大任何两个匹配像素间残差和残差。为了移除这些影响，本文使用局部标准差$\sigma_{ij}$来对两个匹配像素进行加权。因此，重建误差就变为了$L = \sum_{ij}||\sigma_{ij}(I_{LCN}^l - \hat{I}_{LCN}^l)||_1 = \sum_{ij}C_{ij}$.
 
@@ -70,7 +70,7 @@ tags:
 
 传统的立体匹配使用自适应的支持窗口**(ASW)**,进行成本聚合，这虽然有效但是却非常慢，在实时系统中无法使用。在这里，本文提议在训练工程中使用 ASW 方案，因此他不影响运行时的成本。考虑一个$(i,j)$处的亮度为$I_{ij}$像素，与其计算每个像素的Loss，在这里使用一个2Kx2K窗口大小的聚合成本: $\hat{C}_{ij} = \frac{\sum_{x = i-k}^{i+k-1}\sum_{y = j-k}^{j+k-1}w_{xy}C_{ij}}{\sum_{x = i-k}^{i+k-1}\sum_{y = j-k}^{j+k-1}w_{xy}}$, $W_{xy} = \exp(-\frac{|I_{ij}-I{xy}|}{\sigma_w})$, $\sigma_w = 2$
 
-> ![](../img/in-post/papers/ActiveStereo-ASW.png)
+> ![](https://res.cloudinary.com/doijhjbpf/image/upload/v1533778995/ActiveStereo-ASW.png)
 
 ### Invalidation Network
 
@@ -94,7 +94,7 @@ tags:
 
 实验结果显示本文方法的数据偏差降低了一个数量级，子像素精度为0.03像素，而且抖动非常低。我们还展示了距离墙壁3000毫米时，多种方案下预计出现的点云。请注意，尽管距离较远（3米），但其他方法相比，我们的结果噪音更低。如图所示：
 
-> ![](../img/in-post/papers/ActiveStereo-wall.png)
+> ![](https://res.cloudinary.com/doijhjbpf/image/upload/v1533778995/ActiveStereo-wall.png)
 
 为了表示精度，我们将偏差计算为预测深度和真实值之间的平均误差l1。图中所示为关于我们所用的方法的深度偏差和传感器输出、现有最佳技术的局部立体化方法（PatchMatch，HashMatch），以及我们所使用的最先进的非监督式训练出的模型，并对点云做了表面法线着色处理的可视化操作。我们的系统在距墙壁全部距离上的性能都明显优于其他方法，并且其误差不会随着深度增加而显着增加。我们系统对应的子像素视差精度为1/30像素，这是通过使用上述方程（也在图5中给出）拟合曲线而获得的。这比其他方法的精度（不高于0.2像素）精确一个数量级。
 
@@ -102,7 +102,7 @@ tags:
 
 **与最新技术比较** 在具有挑战性的场景中对ASN的更多定性评估如图所示。可以看出，像PatchMatch和HashMatch这样的局部方法无法处理有源光和无源光的混合照明场景，因此会产生不完整的差异图像（缺失像素显示为黑色）。使用半全局方案的传感器输出更适合此类数据，但仍然容易受到图像噪声的影响（请注意第四列中的噪声结果）。
 
-> ![](../img/in-post/papers/ActiveStereo-soa.png)
+> ![](https://res.cloudinary.com/doijhjbpf/image/upload/v1533778995/ActiveStereo-soa.png)
 
 
 
