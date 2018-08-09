@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "论文阅读(1)——fusion4D 论文阅读笔记"
+title:      "论文阅读《fusion4D》"
 subtitle:   ""
 date:       2018-01-29 23:30:00
 author:     "Stonlimart"
@@ -9,9 +9,8 @@ header-mask: 0.3
 catalog:    true
 tags:
     - 论文阅读
-    - 读书笔记
     - 计算机图形学
-    - 三维建模
+    - 三维重建
 ---
 
 
@@ -42,7 +41,9 @@ Fusion 4D 尝试将多视角捕捉系统固有的特性带入实时三维场景�
 
 ### 5.1  变形模型
 
-我们采用embedded deformation model (ED)模型来参数化非刚性变形场。在处理新的一帧数据之前，我们对网格$V$进行的采样位置$\{g\_k\}\_{k=1}^K$进行均匀采样得到K个“ED nodes“来得到参考帧。网格上的每个顶点$\mathbf{v}\_m$将被”皮肤化“到他的m个最邻近ED点$S\_m \subseteq\{1,\dots,K\}$使用固定的皮肤化权值$\{w\_k : w\_k^m = \frac{1}{z}exp(||\mathbf{v}\_m-\mathbf{g}\_k||^2/2\sigma^2)\}$,在此，用于Z是一个归一化的常数来保证权值和为1。$\sigma$定义了ED nodes的有效半径，在此我们设置$\sigma = 0.5d$，$d$在此处表示采样后相邻ED nodes的平均距离。
+我们采用embedded deformation model (ED)模型来参数化非刚性变形场。在处理新的一帧数据之前，我们对网格$V$进行的采样位置$\{g\_k\}\_{k=1}^K$进行均匀采样得到K个“ED nodes“来得到参考帧。网格上的每个顶点$\mathbf{v}\_m$将被”皮肤化“到他的m个最邻近ED点$S\_m \subseteq\{1,\dots,K\}$使用固定的皮肤化权值$\{w\_k \: w\_k^m = \frac{1}{z}exp(||\mathbf{v}\_m-\mathbf{g}\_k||^2/2\sigma^2)\}$,在此，用于Z是一个归一化的常数来保证权值和为1。$\sigma$定义了ED nodes的有效半径，在此我们设置$\sigma = 0.5d$，$d$在此处表示采样后相邻ED nodes的平均距离。
+
+
 
 接下来，我们使用放射变换(旋转变换)$A\_k\in R^{3\times3}$和平移变换$t\_k \in R^3$. 除此之外，还有全局旋转矩阵$R$和平移$T$。因此集合$G = \{R,T\}\cup\{A\_k,t\_k\}\_{k=1}^K$完全参数化了变形，因此将点$\mathbf{v}$变形为
 
