@@ -80,7 +80,7 @@ Fusion 4D 尝试将多视角捕捉系统固有的特性带入实时三维场景�
 
 > * $\Pi\_n(\mathbf{\tilde{v}\_m})$是有效的而且在第n个深度图中是可见的。
 > * $||\tilde{\mathbf{v}}\_m-\Gamma\_n(\tilde{\mathbf{v}}\_m)|| \leq \epsilon\_d$ 而且
-> * $\tilde{\mathbf{n}}\_m^TP\_n^{\bot}(\Pi\_n(\mathbf{\tilde{v}}\_m)) < \epsilon\_n$ 
+> * $\tilde{\mathbf{n}}\_m^TP\_n^{\bot}(\Pi\_n(\mathbf{\tilde{v}}\_m)) \< \epsilon\_n$ 
 
 $P\_n^{\bot}:\mathbb{R}^2\to \mathbb{R}^3$是从第n个深度图中估测的法向量$ \epsilon\_d $和$ \epsilon\_n$是深度和法向量的截断阈值。
 
@@ -122,7 +122,7 @@ $P\_n^{\bot}:\mathbb{R}^2\to \mathbb{R}^3$是从第n个深度图中估测的法�
 
 之前有研究者使用多尺度图片描述子来保证尺度和透视变换的鲁棒性。在这里，我们使用深度数据来扩展他们的方法，这保障了尺度不变性。我们也根据投票方案来使用不同的策略来进行匹配检索。正式的，我们分割节点包含一个学习到的参数集合$\delta = (\mathbf{u},\mathbf{v},\theta)$，在这里$ (\mathbf{u},\mathbf{v})$是2D像素偏置，$\theta$表示一个阈值。在点P处的分割函数被表示为：
 
-​					$$f(p,\theta) = \begin{cases}L \quad if \quad I\_s(\mathbf{p}+\mathbf{u}/d\_s)-I\_t(\mathbf{p}+\mathbf{v}/d\_t) < \theta\\ R \quad  other wise \end{cases}$$   (9)
+​					$f(p,\theta) = \begin{cases}L \quad if \quad I\_s(\mathbf{p}+\mathbf{u}/d\_s)-I\_t(\mathbf{p}+\mathbf{v}/d\_t) \< \theta\\ R \quad  other wise \end{cases}$   (9)
 
 这里$d\_s = \mathbb{D}\_s(\mathbf{p}),d\_t = \mathbb{D}\_t(\mathbf{p})​$。用当前点的深度来正则化这些偏置能提供尺度因子的不变性。这种像素差异测试因为其有效性和强大的描述性，经常被用在决策森林的描述中。
 
@@ -154,7 +154,7 @@ $P\_n^{\bot}:\mathbb{R}^2\to \mathbb{R}^3$是从第n个深度图中估测的法�
 
 ​					$(J^TJ+\mu I)h = -J^Tf$	(12)
 
-$\mu$是一个衰减因子，$J \in \mathbb{R}^{C\times D}$是$f(X)$的雅可比矩阵。如果更新能够使得能量降低( i.e. $E(X+h)<E(X)$ ,那么 $X \gets X+h$，衰减因子也降低更多。)如果能量增加了，则此步长被拒绝，则增加衰减因子然后再次计算(12)式。
+$\mu$是一个衰减因子，$J \in \mathbb{R}^{C\times D}$是$f(X)$的雅可比矩阵。如果更新能够使得能量降低( i.e. $E(X+h)\<E(X)$ ,那么 $X \gets X+h$，衰减因子也降低更多。)如果能量增加了，则此步长被拒绝，则增加衰减因子然后再次计算(12)式。
 
 **per-Iteration Approximation** 为了解决能量函数$E\_{data}(G)$的非差异性并提高性能。在每轮迭代开始，我们复制当前的参数$G\_0\gets G$来构造一个$E\_{data}(G)$的差分近似 
 
@@ -193,9 +193,9 @@ $J^TJ$的稀疏性绝大程度上有两个参数决定。$|\mathcal{S}\_m|$，�
 
 #### 6.1.1 帧形变
 
-我们用两步层次化这个体帧。每一个体素$\mathbf{x} \in \mathbb{R}^3$ 都有一个带符号的距离值和一个权重$<d,w>$
+我们用两步层次化这个体帧。每一个体素$\mathbf{x} \in \mathbb{R}^3$ 都有一个带符号的距离值和一个权重$\<d,w\>$
 
-在任一轮迭代开始，都要首先从深度图中采样一个数据帧$\mathbb{V}^d$，然后对当前参考帧$\mathbb{V}^r$使用估计的变形场变形到这个数据帧并且与数据进行融合。ED图将参考帧与数据帧对齐。同样的前向变形函数(1)还可以用于参考帧中体素$\mathbf{x}^r$变形为$\tilde{\mathbf{x}}^r = \mathcal{T}(\mathbf{x}^r;G)$。变形后的体素将会用他的数据$<d^r,w^r>$对他的距离为$\tau$ 以内的规则网格内的邻居体素的进行一个投票。每个该范围内的体素$\mathbf{x}^d$将会对累积的$<\bar{d}^r,w^r>$然后用对应权$ w = \exp{-||\hat{\mathbf{x}}^2-\mathbf{x}^d||^2/2\sigma^2}$计算加权平均，得到变化后的$\mathbf{x}^d$ SDF值。
+在任一轮迭代开始，都要首先从深度图中采样一个数据帧$\mathbb{V}^d$，然后对当前参考帧$\mathbb{V}^r$使用估计的变形场变形到这个数据帧并且与数据进行融合。ED图将参考帧与数据帧对齐。同样的前向变形函数(1)还可以用于参考帧中体素$\mathbf{x}^r$变形为$\tilde{\mathbf{x}}^r = \mathcal{T}(\mathbf{x}^r;G)$。变形后的体素将会用他的数据$\<d^r,w^r\>$对他的距离为$\tau$ 以内的规则网格内的邻居体素的进行一个投票。每个该范围内的体素$\mathbf{x}^d$将会对累积的$\<\bar{d}^r,w^r\>$然后用对应权$ w = \exp{-||\hat{\mathbf{x}}^2-\mathbf{x}^d||^2/2\sigma^2}$计算加权平均，得到变化后的$\mathbf{x}^d$ SDF值。
 
 注意到这种平均将会引起一些几何模糊，为了改善这种状况，每个参考帧上的体素不直接对他携带的SDF值直接投票，而是用SDF的梯度场获得的矫正的值$\bar{d}$ 的来进行计算。
 
@@ -209,7 +209,7 @@ $\Delta$是在参考帧变形前$\mathbf{x^r}$的梯度，$\tilde{\Delta}$是变
 
 **Voxel Collision.**	当模型的两部分朝向彼此运动时，比如击掌，两个不同表面上的参考体素会在击掌后发生碰撞，在这时，用这些像素进行SDF平均会导致问题，在最坏情况下，拥有高SDF绝对值的体素将会盖过过零点的体素，导致模型空洞。
 
-为了解决这一问题，我们将融合通过两步。在第一步，对于任何给定的体素$\mathbf{x}^d$,我们对其所有参考体素的投票值，然后保存SDF绝对值最小的体素。第二步，拒绝任何参考体素$|\mathbf{x}^r-\dot{\mathbf{x}}^r|>\eta$的投票权。
+为了解决这一问题，我们将融合通过两步。在第一步，对于任何给定的体素$\mathbf{x}^d$,我们对其所有参考体素的投票值，然后保存SDF绝对值最小的体素。第二步，拒绝任何参考体素$|\mathbf{x}^r-\dot{\mathbf{x}}^r|\>\eta$的投票权。
 
 **Voxel Misalignment** 我们需要评价每个参考体素$\mathbf{x}^r$的proxy error来检测非刚性的跟踪失败以此来拒绝他的投票权。为了解决这个问题，我们首先要计算每个变形后的点$\tilde{\mathbf{x}}^r$的对齐误差。
 
