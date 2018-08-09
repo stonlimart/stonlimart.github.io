@@ -53,15 +53,15 @@ tags:
 ### Loss Function
 
 上述网络结构是由一个低分辨率的视差网络和后续的微调模块来恢复高频细节，所以自然想到的方案是每个步骤都有一个损失函数。但是由于是无监督的，所以一个可行的方案是用左图和重构的左图之间的光度误差来作为损失函数
-$L = \sum_{ij}||I_{ij}^l - \hat{I}_{ij}^l||_1$
+$L = \sum\_{ij}||I\_{ij}^l - \hat{I}\_{ij}^l||\_1$
 重构的左图是通过预测视差和右图采样得到的。采样器是使用**Spatial Transformer Network（STN）** 得到的，该采样器对同行的2个像素进行双线性采样而且是完全可微的。
 
 但是光度损失在图像重建中表现很差，尤其在主动双目系统中。首先，接受到的信号强度与距离的平方成反比，即
  $I\propto\frac{1}{Z^2}$
  这导致光度对距离的明显的依赖。第二，明亮的像素比暗点的像素更容易产生较大的残差，因为 
- $I = I^{*}+N(0,\sigma_1I^*+\sigma_2)$
+ $I = I^{*}+N(0,\sigma\_1I^*+\sigma\_2)$
  则两个匹配像素之间的残差满足分布
-$\epsilon  = N(0,\sqrt{(\sigma_1I^*+\sigma_2)^2+(\sigma_3\hat{I}^*+\sigma_4)^2} )$
+$\epsilon  = N(0,\sqrt{(\sigma\_1I^*+\sigma\_2)^2+(\sigma\_3\hat{I}^*+\sigma\_4)^2} )$
 可知，方差与亮度有关。在主动双目系统中，上述问题会使得网络偏向特殊的场景，永远会有更大的误差。网络会在更容易的区域学习，然后对其它区域进行平滑。那些较暗的像素，需要更高的精确度来确定深度，却会被忽略掉。
 
 而且，当前景和背景差异很大时，这种损失会在被遮挡区域产生更大的误差，导致网络再无法解释的区域学习。
@@ -71,7 +71,7 @@ $\epsilon  = N(0,\sqrt{(\sigma_1I^*+\sigma_2)^2+(\sigma_3\hat{I}^*+\sigma_4)^2} 
 > ![](https://res.cloudinary.com/doijhjbpf/image/upload/v1533778995/ActiveStereo-LCN.png)
 
 但是，LCN在标准差接近0的弱纹理的区域表现不好（Fig.3 LCN error）. 事实上是因为这些区域小的$\sigma$会放大任何两个匹配像素间残差和残差。为了移除这些影响，本文使用局部标准差$\sigma_{ij}$来对两个匹配像素进行加权。因此，重建误差就变为了
-$L = \sum_{ij}||\sigma_{ij}(I_{LCN}^l - \hat{I}_{LCN}^l)||_1 = \sum_{ij}C_{ij}$ .
+$L = \sum\_{ij}||\sigma\_{ij}(I\_{LCN}^l - \hat{I}\_{LCN}^l)||\_1 = \sum\_{ij}C\_{ij}$ .
 
 ### Window-based Optimization
 
